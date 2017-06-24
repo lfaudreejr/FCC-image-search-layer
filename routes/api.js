@@ -18,9 +18,6 @@ router.get("/imagesearch", function(req, res, next) {
 });
 /* GET latest */
 router.get("/latest/imagesearch", function(req, res, next) {
-  if (historyArr.length > 10) {
-    historyArr.length = 0;
-  }
   res.send(historyArr);
 });
 
@@ -32,6 +29,11 @@ router.get("/imagesearch/:query", function(req, res, next) {
   var cx = process.env.cx;
 
   var historyObj = new historyFn(search);
+  // If the history array is full, remove 1 items from the front
+  if (historyArr.length > 10) {
+    historyArr.shift();
+  }
+  // Push new history Object to history Array
   historyArr.push(historyObj);
   console.log(historyArr);
   var url =
