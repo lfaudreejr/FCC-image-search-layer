@@ -18,7 +18,9 @@ router.get("/imagesearch", function(req, res, next) {
 });
 /* GET latest */
 router.get("/latest/imagesearch", function(req, res, next) {
-  console.log(historyArr);
+  if (historyArr.length > 10) {
+    historyArr.length = 0;
+  }
   res.send(historyArr);
 });
 
