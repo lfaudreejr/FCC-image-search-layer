@@ -3,6 +3,12 @@ var router = express.Router();
 var request = require("request");
 require("dotenv").config();
 
+var historyArr = [];
+function historyFn(term) {
+  this.term = term;
+  this.when = new Date();
+}
+
 /* GET */
 router.get("/", function(req, res, next) {
   res.redirect("index");
@@ -10,13 +16,22 @@ router.get("/", function(req, res, next) {
 router.get("/imagesearch", function(req, res, next) {
   res.redirect("index");
 });
+/* GET latest */
+router.get("/latest/imagesearch", function(req, res, next) {
+  console.log(historyArr);
+  res.send(historyArr);
+});
+
 /* GET imagesearch query */
 router.get("/imagesearch/:query", function(req, res, next) {
   var search = req.params.query;
-  var num = req.query.offset;
+  var num = req.query.offset || 1;
   var key = process.env.google;
   var cx = process.env.cx;
 
+  var historyObj = new historyFn(search);
+  historyArr.push(historyObj);
+  console.log(historyArr);
   var url =
     "https://www.googleapis.com/customsearch/v1?key=" +
     key +
