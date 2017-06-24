@@ -57,6 +57,9 @@ router.get("/imagesearch/:query", function(req, res, next) {
       this.thumbnail = thumb;
       this.image = image;
     }
+    if (bod["items"] === undefined || bod["items"] === null) {
+      return res.redirect("index");
+    }
 
     // Create a new objects to return with api data
     const returnArr = [];
