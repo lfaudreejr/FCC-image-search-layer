@@ -11,10 +11,10 @@ function historyFn(term) {
 
 /* GET */
 router.get("/", function(req, res, next) {
-  res.redirect("index");
+  res.redirect("/");
 });
 router.get("/imagesearch", function(req, res, next) {
-  res.redirect("index");
+  res.redirect("/");
 });
 /* GET latest */
 router.get("/latest/imagesearch", function(req, res, next) {
@@ -58,7 +58,7 @@ router.get("/imagesearch/:query", function(req, res, next) {
       this.image = image;
     }
     if (bod["items"] === undefined || bod["items"] === null) {
-      return res.redirect("index");
+      return res.redirect("/");
     }
 
     // Create a new objects to return with api data
